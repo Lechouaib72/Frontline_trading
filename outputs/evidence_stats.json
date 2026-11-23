@@ -1,0 +1,69 @@
+{
+  "indeed_last_date": "2026-11-13",
+  "indeed_frontline_vs_feb2020": 13.2,
+  "indeed_knowledge_vs_feb2020": -10.9,
+  "indeed_frontline_since_chatgpt_pct": -28.6,
+  "indeed_knowledge_since_chatgpt_pct": -38.9,
+  "indeed_ratio_now": 1.27,
+  "matched_pairs": [
+    {
+      "label": "Entry-level: food service vs. customer service",
+      "frontline": "Food Prep & Service",
+      "knowledge": "Customer Service",
+      "ratio_at_chatgpt": 1.07,
+      "ratio_now": 1.1,
+      "rel_change_pct": 2.6
+    },
+    {
+      "label": "Healthcare support: med. technician vs. med. records/coding",
+      "frontline": "Medical Technician",
+      "knowledge": "Medical Information",
+      "ratio_at_chatgpt": 1.06,
+      "ratio_now": 1.4,
+      "rel_change_pct": 32.6
+    },
+    {
+      "label": "Built environment: construction trades vs. architecture/drafting",
+      "frontline": "Construction",
+      "knowledge": "Architecture",
+      "ratio_at_chatgpt": 1.12,
+      "ratio_now": 1.42,
+      "rel_change_pct": 26.2
+    },
+    {
+      "label": "Support roles: logistics support vs. documentation",
+      "frontline": "Logistic Support",
+      "knowledge": "Info Design & Documentation",
+      "ratio_at_chatgpt": 1.19,
+      "ratio_now": 1.58,
+      "rel_change_pct": 32.3
+    },
+    {
+      "label": "Mid-skill: nursing vs. HR",
+      "frontline": "Nursing",
+      "knowledge": "Human Resources",
+      "ratio_at_chatgpt": 1.04,
+      "ratio_now": 1.12,
+      "rel_change_pct": 7.0
+    }
+  ],
+  "pairs_all_positive": true,
+  "did_beta_logpts": -0.21,
+  "did_beta_pct": -19.0,
+  "did_tstat": -3.48,
+  "did_pre_2022H1": 0.116,
+  "did_latest": -0.21,
+  "ces_last": "2026-10-01",
+  "ces_share_at_chatgpt": 73.65,
+  "ces_share_now": 75.0,
+  "ces_frontline_jobs_added_k": 4164,
+  "ces_knowledge_jobs_added_k": -180,
+  "computer_systems_design_change_k": -129,
+  "wage_gap_avg_since_chatgpt_pp": -0.22,
+  "wage_rel_level_change_pct": -1.2,
+  "wage_months_frontline_faster_pct": 40.0,
+  "grad_gap_now_pp": -0.83,
+  "grad_gap_at_chatgpt_pp": -1.66,
+  "grad_gap_2010s_avg_pp": -3.53,
+  "grad_gap_last": "2026-10-01"
+}

@@ -1,0 +1,15 @@
+series,industry,group,cagr_2015_19,cagr_since_chatgpt,change_k
+USCONS,Construction,frontline,3.22,1.63,504.0
+CES2023800001,Specialty trade contractors,frontline,3.09,1.43,279.0
+CES6562000001,Health care & social assistance,frontline,2.41,3.64,3074.0
+CES6562100001,Ambulatory health care,frontline,3.01,3.09,1023.0
+CES6562200001,Hospitals,frontline,1.31,2.81,586.0
+CES4300000001,Transportation & warehousing,frontline,3.88,0.08,20.0
+USLAH,Leisure & hospitality,frontline,2.2,1.24,781.0
+MANEMP,Manufacturing,frontline,0.85,-0.44,-215.0
+USINFO,Information,knowledge,1.16,-3.34,-381.0
+CES6054150001,Computer systems design,knowledge,3.2,-1.38,-129.0
+CES6054000001,"Professional, scientific & technical",knowledge,2.4,0.54,222.0
+CES5552000001,Finance & insurance,knowledge,1.6,-0.28,-71.0
+CES6055000001,Management of companies,knowledge,2.29,0.5,50.0
+CES6056130001,Employment services,knowledge,-0.07,-4.27,-588.0

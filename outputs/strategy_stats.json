@@ -1,0 +1,106 @@
+{
+  "spread_cum_pre_pct": -3.0,
+  "spread_cum_era_pct": 278.6,
+  "beta_fl_last": 0.82,
+  "beta_kn_last": 0.51,
+  "fsi_last": 0.18,
+  "fsi_last_date": "2026-11-23",
+  "fsi_components_last": {
+    "indeed": -0.03,
+    "ces": 0.16,
+    "grad": 0.43
+  },
+  "fsi_ic_full": 0.094,
+  "fsi_ic_era": -0.255,
+  "fsi_ic_n_months": 122,
+  "kill_switch_days_active_pct": 0.0,
+  "event_n": 20,
+  "event_mean_m1p1_pct": 0.71,
+  "event_mean_p1p10_pct": 2.7,
+  "event_mean_p1p20_pct": 4.97,
+  "event_pos_p1p10": 13,
+  "event_kn_mean_m1p1_pct": -0.64,
+  "event_placebo_pvalue_p1p10": 0.134,
+  "raw_legs": {
+    "FL": {
+      "pre": {
+        "name": "FL",
+        "cagr_pct": 23.79,
+        "vol_pct": 22.13,
+        "sharpe": 1.08,
+        "max_dd_pct": -34.0,
+        "hit_rate_pct": 54.5,
+        "start": "2016-07-05",
+        "end": "2022-11-29"
+      },
+      "era": {
+        "name": "FL",
+        "cagr_pct": 22.6,
+        "vol_pct": 19.72,
+        "sharpe": 1.13,
+        "max_dd_pct": -18.6,
+        "hit_rate_pct": 53.5,
+        "start": "2022-11-30",
+        "end": "2026-11-23"
+      }
+    },
+    "KN": {
+      "pre": {
+        "name": "KN",
+        "cagr_pct": 21.05,
+        "vol_pct": 25.71,
+        "sharpe": 0.87,
+        "max_dd_pct": -47.1,
+        "hit_rate_pct": 54.3,
+        "start": "2016-07-05",
+        "end": "2022-11-29"
+      },
+      "era": {
+        "name": "KN",
+        "cagr_pct": -12.86,
+        "vol_pct": 29.15,
+        "sharpe": -0.33,
+        "max_dd_pct": -59.3,
+        "hit_rate_pct": 49.4,
+        "start": "2022-11-30",
+        "end": "2026-11-23"
+      }
+    },
+    "SPY": {
+      "pre": {
+        "name": "SPY",
+        "cagr_pct": 12.31,
+        "vol_pct": 19.23,
+        "sharpe": 0.7,
+        "max_dd_pct": -33.7,
+        "hit_rate_pct": 54.9,
+        "start": "2016-07-05",
+        "end": "2022-11-29"
+      },
+      "era": {
+        "name": "SPY",
+        "cagr_pct": 17.96,
+        "vol_pct": 15.52,
+        "sharpe": 1.14,
+        "max_dd_pct": -18.8,
+        "hit_rate_pct": 55.3,
+        "start": "2022-11-30",
+        "end": "2026-11-23"
+      }
+    }
+  },
+  "best_single": {
+    "GWW": 143.6,
+    "UTI": 169.1,
+    "LINC": 212.3,
+    "EME": 331.6,
+    "FIX": 845.3
+  },
+  "worst_single": {
+    "CHGG": -98.0,
+    "TTEC": -93.8,
+    "FVRR": -77.6,
+    "GLOB": -73.8,
+    "COUR": -72.7
+  }
+}

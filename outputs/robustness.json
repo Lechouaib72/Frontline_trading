@@ -1,0 +1,114 @@
+{
+  "factor_regression": {
+    "pre": {
+      "alpha_ann_pct": 3.2,
+      "alpha_t": 0.51,
+      "r2": 0.267,
+      "loadings": {
+        "MKT": 0.14,
+        "IND_minus_TECH": 0.23,
+        "SIZE": -0.17,
+        "MOM": -0.26,
+        "VALUE": 0.42,
+        "QUALITY": -0.12
+      },
+      "t": {
+        "MKT": 3.9,
+        "IND_minus_TECH": 4.2,
+        "SIZE": -3.9,
+        "MOM": -4.0,
+        "VALUE": 6.0,
+        "QUALITY": -0.9
+      }
+    },
+    "era": {
+      "alpha_ann_pct": 39.4,
+      "alpha_t": 3.4,
+      "r2": 0.222,
+      "loadings": {
+        "MKT": 0.1,
+        "IND_minus_TECH": 0.46,
+        "SIZE": -0.24,
+        "MOM": 0.94,
+        "VALUE": -0.13,
+        "QUALITY": -0.1
+      },
+      "t": {
+        "MKT": 1.3,
+        "IND_minus_TECH": 5.5,
+        "SIZE": -3.4,
+        "MOM": 10.4,
+        "VALUE": -1.2,
+        "QUALITY": -0.4
+      }
+    }
+  },
+  "leave_out": [
+    {
+      "dropped": [
+        "FIX",
+        "EME"
+      ],
+      "era_sharpe": 1.34,
+      "era_ann_ret_pct": 32.4
+    },
+    {
+      "dropped": [
+        "FIX",
+        "EME",
+        "LINC",
+        "UTI",
+        "GWW"
+      ],
+      "era_sharpe": 1.12,
+      "era_ann_ret_pct": 26.7
+    },
+    {
+      "dropped": [
+        "CHGG",
+        "TTEC",
+        "FVRR",
+        "GLOB",
+        "COUR"
+      ],
+      "era_sharpe": 1.03,
+      "era_ann_ret_pct": 25.5
+    },
+    {
+      "dropped": [
+        "FIX",
+        "EME",
+        "LINC",
+        "UTI",
+        "GWW",
+        "CHGG",
+        "TTEC",
+        "FVRR",
+        "GLOB",
+        "COUR"
+      ],
+      "era_sharpe": 0.67,
+      "era_ann_ret_pct": 15.4
+    }
+  ],
+  "random_half_baskets": {
+    "n": 500,
+    "median_sharpe": 1.23,
+    "p5_sharpe": 0.91,
+    "p95_sharpe": 1.52,
+    "share_positive": 1.0
+  },
+  "spread_by_year_pct": {
+    "2016": 12.6,
+    "2017": -13.3,
+    "2018": -5.2,
+    "2019": 18.9,
+    "2020": -36.8,
+    "2021": 2.5,
+    "2022": 32.5,
+    "2023": 31.7,
+    "2024": 55.7,
+    "2025": 42.9,
+    "2026": 32.6
+  }
+}
