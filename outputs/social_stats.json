@@ -1,0 +1,66 @@
+{
+  "n_comments": 116934,
+  "n_reddit": 28,
+  "n_hn": 116906,
+  "n_mentions": 15387,
+  "date_min": "2021-01-01",
+  "date_max": "2026-06-30",
+  "share_of_voice_fl_pre": 0.172,
+  "share_of_voice_fl_era": 0.145,
+  "outlook_fl_pre": -0.04,
+  "outlook_fl_era": -0.041,
+  "outlook_kn_pre": -0.065,
+  "outlook_kn_era": -0.145,
+  "roberta_fl_era": NaN,
+  "roberta_kn_era": NaN,
+  "pivots_pre": {
+    "comments": 28,
+    "trade_pivot_per_1k": 0.0,
+    "code_pivot_per_1k": 142.86,
+    "trade_share_of_pivots": 0.0
+  },
+  "pivots_era": {
+    "comments": 0,
+    "trade_pivot_per_1k": NaN,
+    "code_pivot_per_1k": NaN,
+    "trade_share_of_pivots": 0.0
+  },
+  "pivots_last12m": {
+    "comments": 0,
+    "trade_pivot_per_1k": NaN,
+    "code_pivot_per_1k": NaN,
+    "trade_share_of_pivots": 0.0
+  },
+  "sfsi_last": 1.55,
+  "sfsi_last_month": "2026-06-01",
+  "lead_lag_vs_official": {
+    "indeed": {
+      "-3": -0.081,
+      "-1": -0.176,
+      "0": 0.06,
+      "1": -0.016,
+      "3": -0.234,
+      "6": 0.28
+    },
+    "ces": {
+      "-3": 0.03,
+      "-1": -0.007,
+      "0": 0.142,
+      "1": -0.142,
+      "3": -0.041,
+      "6": 0.0
+    }
+  },
+  "predictive": {
+    "n_months": 60,
+    "ic_1m_full": 0.13,
+    "ic_3m_full": 0.055,
+    "ic_1m_era": 0.118,
+    "ic_3m_era": 0.03,
+    "corr_contemporaneous_era": 0.043
+  },
+  "ai_event_kn_outlook_chg_mean": -0.024,
+  "ai_event_fl_outlook_chg_mean": -0.008,
+  "ai_event_kn_outlook_worse_count": 13,
+  "ai_event_n": 20
+}
