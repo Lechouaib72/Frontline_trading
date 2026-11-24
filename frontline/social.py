@@ -14,6 +14,7 @@ Pipeline on AI-related Reddit / Hacker News comments (see social_collect.py):
      labour data (does social lead?) and vs the trading spread (does it predict?),
      plus an event study of outlook around frontier-AI launches.
 """
+import hashlib
 import html
 import json
 import re
@@ -96,6 +97,12 @@ _AI = re.compile(r"\b(?:ai|a\.i\.|chatgpt|gpt-?\d|llms?|claude|gemini|copilot|au
 _CTX = re.compile(r"\b(?:jobs?|careers?|future|demand|hir(?:e|ed|ing)|employ\w*|work(?:ers)?|"
                   r"unemploy\w*|layoffs?|laid off|salar\w+|wages?|pay|field|industry|profession)\b", re.I)
 _JOBAD = re.compile(r"\|\s*(?:full[- ]?time|part[- ]?time|remote|onsite|on-site|hybrid|contract)\b|who'?s hiring", re.I)
+# scepticism toward a replacement claim ("the 'AI will replace programmers' hype") flips it
+_DISMISS = re.compile(r"\b(?:stupid(?:ity)?|silly|nonsense|myth|hype|overblown|overhyped|ridiculous|delusional|"
+                      r"(?:further|far) off|decades away|years away|miss(?:es|ing)? the point|fundamental truth)\b", re.I)
+# hypotheticals ("if AI can replace X, ...") carry no stance about X's actual future
+_HYPO = re.compile(r"\b(?:if|when|once|whether)\b[^.]{0,40}?\b(?:can|could|would|will|does|manages to)\s+"
+                   r"(?:\w+ ){0,2}?(?:replac|automat|take over)", re.I)
 _SENT = re.compile(r"(?<=[.!?])\s+|\n+")
 _TAG = re.compile(r"<[^>]+>")
 
@@ -103,6 +110,7 @@ _TAG = re.compile(r"<[^>]+>")
 def clean(t):
     t = html.unescape(_TAG.sub(" ", t or ""))
     t = re.sub(r"https?://\S+", " ", t)
+    t = t.replace("\u2019", "'").replace("\u2018", "'").replace("\u201c", '"').replace("\u201d", '"')
     return re.sub(r"[ \t]+", " ", t).strip()
 
 
@@ -113,7 +121,12 @@ def outlook(sent):
     nn = len(_NEGATED_NEG.findall(sent))      # "won't be replaced" -> flips neg to pos
     npos = len(_NEGATED_POS.findall(sent))    # "not in demand" -> flips pos to neg
     pos, neg = pos - npos + nn, neg - nn + npos
-    return int(np.sign(pos - neg))
+    o = int(np.sign(pos - neg))
+    if o < 0 and _DISMISS.search(sent):
+        return 1
+    if o < 0 and pos == 0 and _HYPO.search(sent):
+        return 0
+    return o
 
 
 _CLAUSE = re.compile(r"([,;:]|\b(?:but|while|whereas|although|though|however|before|than|unlike|except)\b)", re.I)
@@ -172,7 +185,7 @@ def transformer_sentiment(sentences, batch=64):
     cache_p = C.RAW / "social" / "roberta_cache.parquet"
     cache = pd.read_parquet(cache_p) if cache_p.exists() else pd.DataFrame(columns=["h", "s"])
     cmap = dict(zip(cache.h, cache.s))
-    hs = sentences.map(lambda x: str(hash(x) & 0xFFFFFFFFFFFF))
+    hs = sentences.map(lambda x: hashlib.md5(x.encode()).hexdigest()[:16])   # stable across runs
     todo = sorted(set(zip(hs, sentences)) - {(h, None) for h in []})
     todo = [(h, s) for h, s in todo if h not in cmap]
     if todo:
