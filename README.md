@@ -13,7 +13,7 @@ Everything here is reproducible: `pip install -r requirements.txt && python run_
 
 ## Part 1 — Is the labour market really leaning into frontline work?
 
-Five independent lenses, frontline vs knowledge in each.
+Six independent lenses, frontline vs knowledge in each (five from official data, one from social media).
 
 | Lens | Result | Supports thesis? |
 |---|---|---|
@@ -34,6 +34,47 @@ Five independent lenses, frontline vs knowledge in each.
    roles mechanically lifts the average knowledge wage), partly frontline supply. **This is the
    un-priced part of the thesis** — if frontline wage growth breaks above knowledge, it's the next leg
    (and it *hurts* employers of frontline labour; see trade 6 below).
+
+### Lens 6 — What people are saying: social-media sentiment (Reddit + Hacker News)
+
+**157,546 public comments** (Jan-2021 → Nov-2026): Reddit (r/careerguidance, r/findapath,
+r/cscareerquestions, r/electricians, r/nursing, r/Futurology; comments mentioning "AI", first 7 days
+of each month, via the Arctic Shift archive) and Hacker News (Algolia; 8 job/AI queries). No author
+handles stored. **23,444 occupation mentions** in 24 occupations, each scored for *future-outlook
+stance* ("AI-proof / in demand / shortage" vs "replaced / cooked / laid off"), with negation, clause
+and contrast handling ("AI will replace architects *before* plumbers" → plumbers positive).
+
+| Social gauge | Pre-ChatGPT | AI era | Read |
+|---|---|---|---|
+| Net outlook, **knowledge** jobs | −0.057 | **−0.117** | Talk about knowledge jobs' future roughly doubled in negativity |
+| Net outlook, **frontline** jobs | −0.024 | **−0.006** | Flat-to-better |
+| Outlook gap (frontline − knowledge) | +0.03 | **+0.11** | Change **+0.09, 95% CI [0.02, 0.14]** (comment-clustered bootstrap); gap ≥ +0.08 every year 2023-26 |
+| Generic sentiment (RoBERTa, independent model) | FL −0.23 / KN −0.10 | FL −0.18 / KN −0.21 | Same direction with a different method: the gap flipped sign |
+| Career-pivot talk in career subs ("learn a trade" vs "learn to code") | 0 trade vs 75 code per 1k comments | **6.9 trade vs 26 code** | Trades went from 0% to **21% of pivot talk** (23% last 12m); "learn to code" fell by ⅔ |
+| Frontline share of occupation mentions | 9.8% | 14.7% | Mostly Reddit (13.5% → 30.6%); HN only 8.2% → 9.2% |
+
+**Which jobs do people think will shape the future?** (net outlook since ChatGPT, ≥50 mentions,
+`outputs/figures/13_social_occupation_ranking.png`). The only net-positive occupations are frontline:
+**welders, electricians, nurses**, then HVAC and plumbers (≈0). Bottom of the table: **customer service
+(−0.23), admin / office (−0.20)**, finance, writers / translators, lawyers / paralegals, software
+engineers (−0.11, by far the most discussed at 8.5k mentions). Two frontline exceptions are telling:
+**drivers / logistics (−0.20)** — people expect autonomous vehicles — and hands-on healthcare aides.
+That matches the hard data: the shift is "care + skilled trades", not "all blue collar".
+
+**What it does *not* do (tested and reported honestly):**
+* **No lead on official data.** Corr(Δ social index, future Δ Indeed / Δ CES) is ≈0 at every lag (−3…+6m).
+* **No trading edge.** Social index rank-IC vs next-1m hedged spread: −0.02 in the AI era (3m: +0.06).
+  It is therefore **not** added to the model — like the FSI, it confirms the thesis but doesn't time it.
+* **AI launches:** knowledge outlook worsened in the 14 days after 12 of 20 launches, but the average
+  change (−0.02) is within noise.
+
+**Measurement quality.** Hand-labelled validation (`outputs/social_validation_round2.csv`, 60 sentences
+labelled blind *after* the scorer was frozen): when the scorer assigns a stance it is right **62%** of
+the time and flips the sign **18%**. It is noisy per comment but biased similarly for both groups — on
+that sample it estimates the frontline-minus-knowledge gap at 0.33 vs 0.43 by hand — so aggregates are
+usable and, if anything, understate the gap. Other caveats: Reddit's pre-ChatGPT "AI" sample is thin
+(384 mentions, 984 career-sub comments); HN skews towards software people; r/Trades returned no
+archive matches and was dropped.
 
 ## Part 2 — The model
 
@@ -133,7 +174,12 @@ python -m frontline.live --event 2026-12-01 "New frontier model"
 | `frontline/strategy.py` | Part 2: baskets, hedged spread, FSI, books, AI event study |
 | `frontline/robustness.py` | Factor regression, leave-out, random sub-baskets |
 | `frontline/live.py` | Today's target weights; register new AI events |
+| `frontline/social_collect.py` | Reddit (Arctic Shift) + Hacker News (Algolia) collector, resumable |
+| `frontline/social.py` | Occupation outlook scorer, pivot-intent index, RoBERTa cross-check, lead/lag + IC tests |
 | `outputs/` | Figures, stats JSON, performance tables, live book |
 
-Sources: BLS Current Employment Statistics & CPS, BLS JOLTS, Indeed Hiring Lab (all via FRED);
+Social data: `python -m frontline.social_collect` (≈2-4 h, resumable) then `python -m frontline.social`
+(`--no-transformer` skips RoBERTa); raw comments are git-ignored.
+
+Sources: Reddit via Arctic Shift, Hacker News via Algolia; BLS Current Employment Statistics & CPS, BLS JOLTS, Indeed Hiring Lab (all via FRED);
 prices via Yahoo Finance. Not investment advice; research prototype.

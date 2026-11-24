@@ -1,18 +1,18 @@
 {
-  "n_comments": 144315,
-  "n_reddit": 10202,
+  "n_comments": 157546,
+  "n_reddit": 23433,
   "n_hn": 134113,
-  "n_mentions": 20447,
+  "n_mentions": 23444,
   "date_min": "2021-01-01",
   "date_max": "2026-11-22",
   "share_of_voice_fl_pre": 0.098,
-  "share_of_voice_fl_era": 0.108,
-  "outlook_fl_pre": -0.032,
-  "outlook_fl_era": -0.032,
-  "outlook_kn_pre": -0.07,
-  "outlook_kn_era": -0.144,
-  "roberta_fl_era": -0.206,
-  "roberta_kn_era": -0.22,
+  "share_of_voice_fl_era": 0.147,
+  "outlook_fl_pre": -0.024,
+  "outlook_fl_era": -0.006,
+  "outlook_kn_pre": -0.057,
+  "outlook_kn_era": -0.117,
+  "roberta_fl_era": -0.181,
+  "roberta_kn_era": -0.211,
   "pivots_pre": {
     "comments": 984,
     "trade_pivot_per_1k": 0.0,
@@ -20,47 +20,47 @@
     "trade_share_of_pivots": 0.0
   },
   "pivots_era": {
-    "comments": 4338,
-    "trade_pivot_per_1k": 7.38,
-    "code_pivot_per_1k": 31.12,
-    "trade_share_of_pivots": 0.192
+    "comments": 12132,
+    "trade_pivot_per_1k": 6.92,
+    "code_pivot_per_1k": 25.96,
+    "trade_share_of_pivots": 0.211
   },
   "pivots_last12m": {
-    "comments": 0,
-    "trade_pivot_per_1k": NaN,
-    "code_pivot_per_1k": NaN,
-    "trade_share_of_pivots": 0.0
+    "comments": 3509,
+    "trade_pivot_per_1k": 5.98,
+    "code_pivot_per_1k": 20.52,
+    "trade_share_of_pivots": 0.226
   },
-  "sfsi_last": 0.44,
+  "sfsi_last": 0.51,
   "sfsi_last_month": "2026-11-01",
   "lead_lag_vs_official": {
     "indeed": {
-      "-3": 0.041,
-      "-1": 0.077,
-      "0": -0.042,
-      "1": -0.051,
-      "3": -0.122,
-      "6": 0.042
+      "-3": -0.028,
+      "-1": 0.111,
+      "0": -0.016,
+      "1": -0.042,
+      "3": -0.003,
+      "6": -0.123
     },
     "ces": {
-      "-3": -0.036,
-      "-1": 0.019,
-      "0": -0.024,
-      "1": -0.085,
-      "3": -0.07,
-      "6": 0.071
+      "-3": -0.045,
+      "-1": 0.052,
+      "0": -0.061,
+      "1": -0.077,
+      "3": -0.001,
+      "6": 0.091
     }
   },
   "predictive": {
     "n_months": 62,
-    "ic_1m_full": 0.057,
-    "ic_3m_full": -0.082,
-    "ic_1m_era": -0.024,
-    "ic_3m_era": -0.18,
-    "corr_contemporaneous_era": -0.083
+    "ic_1m_full": 0.063,
+    "ic_3m_full": 0.044,
+    "ic_1m_era": -0.017,
+    "ic_3m_era": 0.056,
+    "corr_contemporaneous_era": -0.163
   },
-  "ai_event_kn_outlook_chg_mean": -0.033,
-  "ai_event_fl_outlook_chg_mean": -0.005,
-  "ai_event_kn_outlook_worse_count": 13,
+  "ai_event_kn_outlook_chg_mean": -0.021,
+  "ai_event_fl_outlook_chg_mean": -0.024,
+  "ai_event_kn_outlook_worse_count": 12,
   "ai_event_n": 20
 }
