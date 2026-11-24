@@ -28,8 +28,8 @@ SUBREDDITS = {
     "careerguidance": "career", "findapath": "career",
     # knowledge workers
     "cscareerquestions": "knowledge",
-    # frontline workers
-    "Trades": "frontline", "electricians": "frontline", "nursing": "frontline",
+    # frontline workers (r/Trades dropped: the archive returned 0 matching comments in every month)
+    "electricians": "frontline", "nursing": "frontline",
     # general AI / future-of-work discussion
     "Futurology": "ai",
 }
@@ -45,30 +45,54 @@ def _windows():
         yield m, min(m + pd.Timedelta(days=7), pd.Timestamp(END))
 
 
-def _get(url, params, tries=5):
+class _ScanTimeout(Exception):
+    """Archive full-text scan timed out (HTTP 422): the window is too wide for a rare term."""
+
+
+def _get(url, params, tries=5, split_on_422=False):
     for i in range(tries):
         try:
             r = requests.get(url, params=params, headers=UA, timeout=90)
+            if r.status_code == 422 and split_on_422:
+                raise _ScanTimeout
             if r.status_code in (422, 429, 503) or (r.ok and r.json().get("error")):
                 time.sleep(30 * (i + 1)); continue           # server asked us to slow down
             r.raise_for_status()
             return r.json()
+        except _ScanTimeout:
+            raise
         except Exception:
             if i == tries - 1:
                 return None
             time.sleep(2 ** i)
 
 
-def reddit_chunk(sub, lo, hi):
-    d = _get("https://arctic-shift.photon-reddit.com/api/comments/search",
-             {"subreddit": sub, "body": "AI", "after": lo.strftime("%Y-%m-%d"),
-              "before": hi.strftime("%Y-%m-%d"), "limit": 100,
-              "fields": "id,created_utc,body,subreddit,score"})
-    time.sleep(1.5)                                          # politeness gap, sequential client
+def _reddit_window(sub, lo, hi, depth=0):
+    """Fetch [lo, hi); if the scan times out, split the window in half (same slice, more calls)."""
+    try:
+        d = _get("https://arctic-shift.photon-reddit.com/api/comments/search",
+                 {"subreddit": sub, "body": "AI", "after": lo.strftime("%Y-%m-%dT%H:%M"),
+                  "before": hi.strftime("%Y-%m-%dT%H:%M"), "limit": 100,
+                  "fields": "id,created_utc,body,subreddit,score"}, split_on_422=depth < 3)
+    except _ScanTimeout:
+        time.sleep(3)
+        mid = lo + (hi - lo) / 2
+        a = _reddit_window(sub, lo, mid, depth + 1)
+        b = _reddit_window(sub, mid, hi, depth + 1)
+        return None if a is None or b is None else (a + b)[:100]
+    finally:
+        time.sleep(1.5)                                      # politeness gap, sequential client
     if d is None or d.get("data") is None:
         return None
+    return d["data"]
+
+
+def reddit_chunk(sub, lo, hi):
+    data = _reddit_window(sub, lo, hi)
+    if data is None:
+        return None
     return [{"src": "reddit", "id": x["id"], "ts": x["created_utc"], "community": x["subreddit"],
-             "score": x.get("score"), "text": x["body"]} for x in d["data"]]
+             "score": x.get("score"), "text": x["body"]} for x in data]
 
 
 def hn_chunk(q, lo, hi):
@@ -98,7 +122,7 @@ def collect():
     out = open(SOC / "posts.jsonl", "a")
     rj = [j for j in jobs if j[0].startswith("r7|")]
     hj = [j for j in jobs if j[0].startswith("h|")]
-    with ThreadPoolExecutor(1) as rex, ThreadPoolExecutor(2) as hex_, open(done_path, "a") as dl:
+    with ThreadPoolExecutor(2) as rex, ThreadPoolExecutor(2) as hex_, open(done_path, "a") as dl:
         futs = {rex.submit(f, *a): key for key, f, a in rj}
         futs.update({hex_.submit(f, *a): key for key, f, a in hj})
         for n, fu in enumerate(as_completed(futs), 1):
